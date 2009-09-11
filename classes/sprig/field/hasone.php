@@ -11,6 +11,11 @@ class Sprig_Field_HasOne extends Sprig_Field_ForeignKey {
 			$this->choices = Sprig::factory($this->model)->select_list();
 		}
 	}
+	
+	public function __toString()
+	{
+		return $this->choices[$this->value];
+	}
 
 	public function set($value)
 	{
