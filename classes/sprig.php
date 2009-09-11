@@ -53,6 +53,16 @@ abstract class Sprig {
 	protected $_db = 'default';
 
 	/**
+	 * @var  string  the name of the "id" field on the database table
+	 */
+	protected $_id_field = 'id';
+
+	/**
+	 * @var  string  the name of the "name" field on the database table
+	 */
+	protected $_name_field = 'name';
+
+	/**
 	 * @var  string  database table name
 	 */
 	protected $_table;
@@ -424,8 +434,10 @@ abstract class Sprig {
 	 * @param   string  array value
 	 * @return  array   key => value
 	 */
-	public function select_list($key = 'id', $value = 'name')
+	public function select_list($key = NULL, $value = NULL)
 	{
+		if ($key == NULL) $key = $this->_id_field;
+		if ($value == NULL) $value = $this->_name_field;
 		return DB::select($key, $value)
 			->from($this->_table)
 			->execute($this->_db)
