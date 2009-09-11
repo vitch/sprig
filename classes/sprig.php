@@ -55,7 +55,7 @@ abstract class Sprig {
 	/**
 	 * @var  string  the name of the "id" field on the database table
 	 */
-	protected $_id_field = 'id';
+	protected $_id_field = 'id'; // could we just use $_primary_key?
 
 	/**
 	 * @var  string  the name of the "name" field on the database table
