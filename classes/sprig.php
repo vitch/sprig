@@ -256,7 +256,7 @@ abstract class Sprig {
 				{
 					if ($field instanceof Sprig_Field_HasOne)
 					{
-						$field->column = $name.'_id';
+						$field->column = $name; //.'_id'; // WHY WAS id auto appended??
 					}
 					else
 					{
