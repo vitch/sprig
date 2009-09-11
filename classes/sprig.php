@@ -445,6 +445,33 @@ abstract class Sprig {
 	}
 
 	/**
+	 * Get all of the records for this table as an array of fully populated objects of this type
+	 *
+	 * TODO: Implement pagingation and sorting?
+	 * 
+	 * @return  array   Objects of this class
+	 */
+	public function select_heavy_list()
+	{
+		$ids = DB::select($this->_id_field)
+			->from($this->_table)
+			->execute($this->_db);
+		
+		$results = array();
+		$class_name = get_class($this);
+		while ($row = $ids->current()) {
+			// TODO: Get everything from DB in one query and then populate all objects?
+			$o = new $class_name;
+			//$o->_fields[$this->_id_field]->set($row[$this->_id_field]);
+			$o->{$this->_id_field} = $row[$this->_id_field];
+			$o->load();
+			array_push($results, $o);
+			$ids->next();
+		}
+		return $results;
+	}
+
+	/**
 	 * Return the related object of a ForeignKey field.
 	 *
 	 * @param   string   field name
