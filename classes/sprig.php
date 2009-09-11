@@ -680,7 +680,7 @@ abstract class Sprig {
 		if ($this->_changed)
 		{
 			// Check the data
-			$data = $this->check($this->as_array());
+			$data = $this->check();
 
 			$values = array();
 			foreach ($data as $field => $value)
