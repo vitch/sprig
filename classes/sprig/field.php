@@ -65,11 +65,6 @@ abstract class Sprig_Field {
 			$this->set(NULL);
 		}
 	}
-	
-	public function __toString()
-	{
-		return $this->value . '';
-	}
 
 	public function get()
 	{
