@@ -701,9 +701,11 @@ abstract class Sprig {
 
 				// Nothing has been changed
 				$this->_changed = array();
+				return $this;
 			}
+			// If we didn't successfully load a record then return FALSE as the load failed...
+			return FALSE;
 
-			return $this;
 		}
 		else
 		{
