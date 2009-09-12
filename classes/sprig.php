@@ -449,13 +449,18 @@ abstract class Sprig {
 	 *
 	 * TODO: Implement pagingation and sorting?
 	 * 
+	 * @param	array	Where clauses as key => value
 	 * @return  array   Objects of this class
 	 */
-	public function select_heavy_list()
+	public function select_heavy_list($where = array())
 	{
-		$ids = DB::select($this->_id_field)
-			->from($this->_table)
-			->execute($this->_db);
+		$q = DB::select($this->_id_field)
+			->from($this->_table);
+		
+		foreach ($where as $where_key=>$where_value) {
+			$q->where($where_key, '=', $where_value);
+		}
+		$ids = $q->execute($this->_db);
 		
 		$results = array();
 		$class_name = get_class($this);
