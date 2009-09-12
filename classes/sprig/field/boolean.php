@@ -7,6 +7,11 @@ class Sprig_Field_Boolean extends Sprig_Field {
 	public $default = FALSE;
 
 	public $filters = array('filter_var' => array(FILTER_VALIDATE_BOOLEAN));
+	
+	public function __toString()
+	{
+		return $this->verbose();
+	}
 
 	public function set($value)
 	{
