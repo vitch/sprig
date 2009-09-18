@@ -452,13 +452,16 @@ abstract class Sprig {
 	 * @param	array	Where clauses as key => value
 	 * @return  array   Objects of this class
 	 */
-	public function select_heavy_list($where = array())
+	public function select_heavy_list($where = array(), $order_by='', $order_by_dir='ASC')
 	{
 		$q = DB::select($this->_id_field)
 			->from($this->_table);
 		
 		foreach ($where as $where_key=>$where_value) {
 			$q->where($where_key, '=', $where_value);
+		}
+		if ($order_by != '') {
+			$q->order_by($order_by, $order_by_dir);
 		}
 		$ids = $q->execute($this->_db);
 		
@@ -780,7 +783,6 @@ abstract class Sprig {
 		{
 			// Check the data
 			$data = $this->check($data);
-
 			$values = array();
 			foreach ($data as $field => $value)
 			{
@@ -848,7 +850,6 @@ abstract class Sprig {
 			// Use the current data set
 			$data = $this->changed();
 		}
-
 		$data = Validate::factory($data);
 
 		foreach ($this->_fields as $name => $field)
@@ -873,7 +874,6 @@ abstract class Sprig {
 				}
 			}
 		}
-
 		if ( ! $data->check())
 		{
 			throw new Validate_Exception($data);
