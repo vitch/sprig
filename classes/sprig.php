@@ -63,6 +63,14 @@ abstract class Sprig {
 	protected $_name_field = 'name';
 
 	/**
+	 * @var  string  the name of the "sort on" field on the database table.
+	 * If this is set then the field is set to the id (i.e. the highest number)
+	 * on object creation and the gui can provide a way for the user to switch
+	 * order objects...  
+	 */
+	protected $_sort_on;
+
+	/**
 	 * @var  string  database table name
 	 */
 	protected $_table;
@@ -741,6 +749,17 @@ abstract class Sprig {
 			list($id) = DB::insert($this->_table, array_keys($values))
 				->values($values)
 				->execute($this->_db);
+			
+			if (isset($this->_sort_on)) {
+				DB::update($this->_table)
+					->set(
+						array(
+							$this->_sort_on => $id
+						)
+					)
+					->where($this->_id_field, '=', $id)
+					->execute($this->_db);
+			}
 
 			if (is_array($this->_primary_key))
 			{
