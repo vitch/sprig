@@ -481,13 +481,16 @@ abstract class Sprig {
 	 * @param	array	Where clauses as key => value
 	 * @return  array   Objects of this class
 	 */
-	public function select_heavy_list($where = array(), $order_by='', $order_by_dir='ASC')
+	public function select_heavy_list($where = array(), $order_by=NULL, $order_by_dir='ASC')
 	{
 		$q = DB::select($this->_id_field)
 			->from($this->_table);
 		
 		foreach ($where as $where_key=>$where_value) {
 			$q->where($where_key, '=', $where_value);
+		}
+		if ($order_by == NULL) {
+			$order_by = $this->_sort_on;
 		}
 		if ($order_by != '') {
 			$q->order_by($order_by, $order_by_dir);
