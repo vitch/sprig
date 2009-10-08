@@ -377,6 +377,27 @@ abstract class Sprig {
 	}
 
 	/**
+	 * Returns the sort on field of the model, optionally with a table name.
+	 *
+	 * @param   string  table name, TRUE for the model table
+	 * @return  string
+	 */
+	public function sort_on($table = FALSE)
+	{
+		if ($table)
+		{
+			if ($table === TRUE)
+			{
+				$table = $this->_table;
+			}
+
+			return $table.'.'.$this->_sort_on;
+		}
+
+		return $this->_sort_on;
+	}
+
+	/**
 	 * Returns the table name of the model.
 	 *
 	 * @return  string
