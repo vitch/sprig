@@ -673,7 +673,7 @@ abstract class Sprig {
 					$key = $name;
 				}
 
-				$inputs[$key] = $field->input($name);
+				$inputs[$key] = $field->input($name, array('id'=>$name));
 			}
 		}
 
