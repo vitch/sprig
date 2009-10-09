@@ -860,6 +860,11 @@ abstract class Sprig {
 
 	public function delete()
 	{
+		DB::delete($this->_table)
+			->where($this->pk(), '=', $this->{$this->pk()})
+			->execute($this->_db);
+		return clone $this;
+		/*
 		if ($changed = $this->changed())
 		{
 			$query = DB::delete($this->_table);
@@ -876,6 +881,7 @@ abstract class Sprig {
 		}
 
 		return $this;
+		*/
 	}
 
 	/**
