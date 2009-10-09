@@ -654,9 +654,10 @@ abstract class Sprig {
 	 * Get all fields as an array of inputs.
 	 *
 	 * @param   boolean  use the input label as the array key
+	 * @param	array    validation errors to output inline with the inputs...
 	 * @return  array    label => input
 	 */
-	public function inputs($labels = TRUE)
+	public function inputs($labels = TRUE, $errors = array())
 	{
 		$inputs = array();
 
@@ -673,7 +674,12 @@ abstract class Sprig {
 					$key = $name;
 				}
 
-				$inputs[$key] = $field->input($name, array('id'=>$name));
+				$html = '';
+				if (isset($errors[$name])) {
+					$html .= '<div class="error">' . $errors[$name] . '</div>';
+				}
+				$html .= $field->input($name, array('id'=>$name));
+				$inputs[$key] = $html;
 			}
 		}
 
